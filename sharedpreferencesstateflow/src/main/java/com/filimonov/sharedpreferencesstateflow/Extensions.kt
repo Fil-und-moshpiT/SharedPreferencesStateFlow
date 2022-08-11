@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.FlowCollector
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
@@ -59,3 +61,8 @@ public fun <T> SharedPreferences.createStateFlow(
 public fun <T> SharedPreferencesStateFlow<T>.collectAsState(
     context: CoroutineContext = EmptyCoroutineContext
 ): State<T> = flow.collectAsState(default, context)
+
+@OptIn(InternalCoroutinesApi::class)
+public suspend fun <T> SharedPreferencesStateFlow<T>.collect(collector: FlowCollector<T>) {
+    return flow.collect(collector = collector)
+}
