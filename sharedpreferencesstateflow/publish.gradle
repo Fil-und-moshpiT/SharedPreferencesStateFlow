@@ -1,36 +1,14 @@
 apply plugin: 'maven-publish'
 
-task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
-}
-
 project.afterEvaluate {
-    publishToMavenLocal {
-        def groupId = "com.filimonov"
-        def artifactId = "shared-preferences-stateflow"
-        def versionName = "1.0.0-local"
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
 
-        publishing {
-            publications {
-                LibraryRelease(MavenPublication) {
-                    from components.release
-                    artifact(sourceJar)
-                    setGroupId groupId
-                    setArtifactId artifactId
-                    version versionName
-                }
-            }
-            publications.all {
-                pom.withXml {
-                    asNode().dependencies.'*'
-                            .findAll() {
-                                it.scope.text() == 'runtime' &&
-                                        project.configurations.implementation.allDependencies.find {
-                                            dep -> dep.name == it.artifactId.text()
-                                        }
-                            }.each { it.scope*.value = 'compile'}
-                }
+                groupId = 'com.filimonov'
+                artifactId = 'shared-preferences-stateflow'
+                version = '1.0.0'
             }
         }
     }
