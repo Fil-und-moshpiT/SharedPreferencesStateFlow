@@ -1,6 +1,6 @@
 plugins {
-    id 'com.android.library' version '7.2.2'
-    id 'org.jetbrains.kotlin.android' version "$kotlinVersion"
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
 }
 
@@ -10,11 +10,8 @@ android {
     defaultConfig {
         minSdk 21
         targetSdk 32
-
         versionCode 1
         versionName '1.0.0'
-
-        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
