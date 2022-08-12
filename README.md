@@ -43,3 +43,33 @@ lifecycleScope.launchWhenCreated {
     flow.collect { binding.textString.text = it }
 }
 ````
+
+Supported types
+--------------
+````kotlin
+// Boolean
+val booleanFlow = preferences.createStateFlow(key = "BOOLEAN_KEY", default = false)
+
+// Integer
+val integerFlow = preferences.createStateFlow(key = "INTEGER_KEY", default = 0)
+
+// Long
+val longFlow = preferences.createStateFlow(key = "LONG_KEY", default = 0L)
+
+// Float
+val floatFlow = preferences.createStateFlow(key = "FLOAT_KEY", default = .0f)
+
+// String
+val stringFlow = preferences.createStateFlow(key = "STRING_KEY", default = "")
+
+// Object
+// You should implement PreferencesDeserializer
+// For example, using Gson
+val deserializer = object : PreferencesDeserializer<SomeClass> {
+    override fun deserialize(value: String): SomeClass {
+        return Gson().fromJson(value, SomeClass::class.java)
+    }
+}
+
+val objectFlow = preferences.createStateFlow(key = "OBJECT_KEY", default = SomeClass(1), deserializer = deserializer)
+````
