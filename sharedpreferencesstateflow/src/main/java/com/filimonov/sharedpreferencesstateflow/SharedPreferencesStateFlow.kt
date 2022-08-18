@@ -13,7 +13,7 @@ public abstract class SharedPreferencesStateFlow<T> internal constructor(
     internal val default: T
 ) {
     internal val flow: Flow<T> = callbackFlow {
-        trySend(default)
+        trySend(getValueFromPreferences(key, default))
         val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
             if (key == this@SharedPreferencesStateFlow.key) {
                 trySend(getValueFromPreferences(key, default))
