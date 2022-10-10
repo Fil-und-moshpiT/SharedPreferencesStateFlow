@@ -19,7 +19,7 @@ Step 1. Add the JitPack repository to your root build.gradle at the end of repos
 Step 2. Add the dependency
 ````groovy
   dependencies {
-      implementation 'com.github.Fil-und-moshpiT:SharedPreferencesStateFlow:1.0.2'
+      implementation 'com.github.Fil-und-moshpiT:SharedPreferencesStateFlow:1.0.0'
   }
 ````
 
